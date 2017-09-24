@@ -7,7 +7,7 @@ Rectangle::Rectangle() : Rectangle(0.0, 0.0) {
 Rectangle::Rectangle(double i, double j) : side_a(i), side_b(j) {
     std::cout << "Rectangle created" << std::endl;
     if (side_a < 0.0 || side_b < 0.0) {
-        std::cerr << "Error: sides should be > 0."<< std::endl;
+        std::cerr << "Error: sides should be > 0." << std::endl;
     }
 }
 
@@ -15,7 +15,7 @@ Rectangle::Rectangle(std::istream &is) {
     is >> side_a;
     is >> side_b;
     if (side_a < 0.0 || side_b < 0.0) {
-        std::cerr << "Error: sides should be > 0."<< std::endl;
+        std::cerr << "Error: sides should be > 0." << std::endl;
     }
     std::cout << "Rectangle created" << std::endl;
 }
@@ -27,8 +27,8 @@ Rectangle::Rectangle(const Rectangle& orig) {
 }
 
 double Rectangle::Square() {
-    if (side_a || side_b < 0.0) {
-        std::cerr << "Error: sides should be > 0.";
+    if (side_a < 0.0 || side_b < 0.0) {
+        std::cerr << "Error: sides should be > 0." << std::endl;
         return 0.0;
     }
     return side_a * side_b;
