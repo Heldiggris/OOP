@@ -1,0 +1,102 @@
+#include <string>
+#include <iostream>
+
+#include "Quadrate.h"
+#include "Trapeze.h"
+#include "Rectangle.h"
+#include "TBinaryTree.h"
+#include <memory>
+
+
+int main(int argc, char** argv)
+{   
+
+    std::shared_ptr<TBinaryTree<Figure> > tree = std::shared_ptr<TBinaryTree<Figure> >(new TBinaryTree<Figure>());
+    std::string action;
+
+    std::cout << "Введите 'h' или 'help' для получения справки." << std::endl;
+    while (!std::cin.eof()) {
+        std::cin.clear();
+        std::cin.sync();
+        std::cin >> action;
+
+        if (action == "q" or action == "quit") {
+            break;
+        }
+        else if (action == "insertR" or action == "ins_r") {
+            size_t size_a, size_b;
+            if (!(std::cin >> size_a >> size_b)) {
+                std::cout << "Неверное значение." << std::endl;
+                continue;
+            }
+            tree->insert(std::shared_ptr<Figure>(new Rectangle(size_a, size_b)));
+        }
+        else if (action == "insertQ" or action == "ins_q") {
+            size_t size_a;
+            if (!(std::cin >> size_a)) {
+                std::cout << "Неверное значение." << std::endl;
+                continue;
+            }
+            tree->insert(std::shared_ptr<Figure>(new Quadrate(size_a)));
+        }
+        else if (action == "insertT" or action == "ins_t") {
+            size_t size_b, size_s, size_l, size_r;
+            if (!(std::cin >> size_b >> size_s >> size_l >> size_r)) {
+                std::cout << "Неверное значение." << std::endl;
+                continue;
+            }
+            tree->insert(std::shared_ptr<Figure>(new Trapeze(size_b, size_s, size_l, size_r)));
+        }
+        else if (action == "remove" or action == "r") {
+            size_t square;
+            if (!(std::cin >> square)) {
+                std::cout << "Неверное значение." << std::endl;
+                continue;
+            }
+            tree->remove(square);
+        }
+        else if (action == "find" or action == "f") {
+            if (tree->empty()) {
+                std::cout << "Дерево пустое." << std::endl;
+                continue;
+            }
+            size_t square;
+            if (!(std::cin >> square)) {
+                std::cout << "Неверное значение." << std::endl;
+                continue;
+            }
+            std::shared_ptr<TBinaryTreeItem<Figure> > rect = tree->find(square);
+            if (rect != nullptr) {
+                rect->GetFigure()->Print();
+            } else {
+                std::cout << "Прямоугольник не найден." << std::endl;
+            }
+            
+        }
+        else if (action == "destroy" or action == "d") {
+            tree = std::shared_ptr<TBinaryTree<Figure> >(new TBinaryTree<Figure>());
+            std::cout << "Дерево удалено." << std::endl;
+        }
+        else if (action == "print" or action == "p") {
+            if (!tree->empty()) {
+                std::cout << *tree << std::endl;
+            } else {
+                std::cout << "Дерево пустое." << std::endl;
+            }
+        }
+        else if (action == "help" or action == "h") {
+            std::cout << "'q'     или 'quit'            - выйти из программы."                 << std::endl;
+            std::cout << "'r'     или 'remove s'        - удалить прямоугольник с площадью s." << std::endl;
+            std::cout << "'f'     или 'find s'          - найти прямоугольник с площадью s."   << std::endl;
+            std::cout << "'d'     или 'destroy'         - удалить дерево."                     << std::endl;
+            std::cout << "'p'     или 'print'           - вывести дерево."                     << std::endl;
+            std::cout << "'ins_r' или 'insertR a b'     - вставить прямоугольник в дерево."    << std::endl;
+            std::cout << "'ins_q' или 'insertQ a'       - вставить квадрат в дерево."          << std::endl;
+            std::cout << "'ins_t' или 'insertT b s l r' - вставить трапецию в дерево."         << std::endl;
+            std::cout << "'h'     или 'help'            - вывести справку."                    << std::endl;
+        }
+        action = " ";
+    }
+
+    return 0;
+}
