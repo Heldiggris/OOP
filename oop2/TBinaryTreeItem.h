@@ -12,7 +12,7 @@ public:
     TBinaryTreeItem();
     TBinaryTreeItem(Rectangle& rectangle);
 
-    int Square();
+    size_t Square();
     Rectangle GetRectangle();
     ~TBinaryTreeItem();
     friend TBinaryTree;

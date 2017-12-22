@@ -20,10 +20,10 @@ int main(int argc, char** argv)
         std::cin.sync();
         std::cin >> action;
 
-        if (action == "q" or action == "quit") {
+        if (action == "q" || action == "quit") {
             break;
         }
-        else if (action == "insertR" or action == "ins_r") {
+        else if (action == "insertR" || action == "ins_r") {
             size_t size_a, size_b;
             if (!(std::cin >> size_a >> size_b)) {
                 std::cout << "Неверное значение." << std::endl;
@@ -31,7 +31,7 @@ int main(int argc, char** argv)
             }
             tree->insert(std::shared_ptr<Figure>(new Rectangle(size_a, size_b)));
         }
-        else if (action == "insertQ" or action == "ins_q") {
+        else if (action == "insertQ" || action == "ins_q") {
             size_t size_a;
             if (!(std::cin >> size_a)) {
                 std::cout << "Неверное значение." << std::endl;
@@ -39,7 +39,7 @@ int main(int argc, char** argv)
             }
             tree->insert(std::shared_ptr<Figure>(new Quadrate(size_a)));
         }
-        else if (action == "insertT" or action == "ins_t") {
+        else if (action == "insertT" || action == "ins_t") {
             size_t size_b, size_s, size_l, size_r;
             if (!(std::cin >> size_b >> size_s >> size_l >> size_r)) {
                 std::cout << "Неверное значение." << std::endl;
@@ -47,7 +47,7 @@ int main(int argc, char** argv)
             }
             tree->insert(std::shared_ptr<Figure>(new Trapeze(size_b, size_s, size_l, size_r)));
         }
-        else if (action == "remove" or action == "r") {
+        else if (action == "remove" || action == "r") {
             size_t square;
             if (!(std::cin >> square)) {
                 std::cout << "Неверное значение." << std::endl;
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
             }
             tree->remove(square);
         }
-        else if (action == "find" or action == "f") {
+        else if (action == "find" || action == "f") {
             if (tree->empty()) {
                 std::cout << "Дерево пустое." << std::endl;
                 continue;
@@ -69,25 +69,25 @@ int main(int argc, char** argv)
             if (rect != nullptr) {
                 rect->GetFigure()->Print();
             } else {
-                std::cout << "Прямоугольник не найден." << std::endl;
+                std::cout << "Фигура не найдена." << std::endl;
             }
             
         }
-        else if (action == "destroy" or action == "d") {
+        else if (action == "destroy" || action == "d") {
             tree = std::shared_ptr<TBinaryTree>(new TBinaryTree());
             std::cout << "Дерево удалено." << std::endl;
         }
-        else if (action == "print" or action == "p") {
+        else if (action == "print" || action == "p") {
             if (!tree->empty()) {
                 std::cout << *tree << std::endl;
             } else {
                 std::cout << "Дерево пустое." << std::endl;
             }
         }
-        else if (action == "help" or action == "h") {
+        else if (action == "help" || action == "h") {
             std::cout << "'q'     или 'quit'            - выйти из программы."                 << std::endl;
-            std::cout << "'r'     или 'remove s'        - удалить прямоугольник с площадью s." << std::endl;
-            std::cout << "'f'     или 'find s'          - найти прямоугольник с площадью s."   << std::endl;
+            std::cout << "'r'     или 'remove s'        - удалить фигуру с площадью s." << std::endl;
+            std::cout << "'f'     или 'find s'          - найти фигуру с площадью s."   << std::endl;
             std::cout << "'d'     или 'destroy'         - удалить дерево."                     << std::endl;
             std::cout << "'p'     или 'print'           - вывести дерево."                     << std::endl;
             std::cout << "'ins_r' или 'insertR a b'     - вставить прямоугольник в дерево."    << std::endl;

@@ -7,10 +7,8 @@
 #include "TBinaryTree.h"
 #include <memory>
 
-
 int main(int argc, char** argv)
 {   
-
     std::shared_ptr<TBinaryTree<Figure> > tree = std::shared_ptr<TBinaryTree<Figure> >(new TBinaryTree<Figure>());
     std::string action;
 
@@ -69,7 +67,7 @@ int main(int argc, char** argv)
             if (rect != nullptr) {
                 rect->GetFigure()->Print();
             } else {
-                std::cout << "Фигура не найдена." << std::endl;
+                std::cout << "Прямоугольник не найден." << std::endl;
             }
             
         }
@@ -84,15 +82,25 @@ int main(int argc, char** argv)
                 std::cout << "Дерево пустое." << std::endl;
             }
         }
+        else if (action == "iter" || action == "it") {
+            if (!tree->empty()) {
+                for (auto i : *tree) {
+                    i->Print();
+                }
+            } else {
+                std::cout << "Дерево пустое." << std::endl;
+            }
+        }
         else if (action == "help" || action == "h") {
             std::cout << "'q'     или 'quit'            - выйти из программы."                 << std::endl;
-            std::cout << "'r'     или 'remove s'        - удалить прямоугольник с площадью s." << std::endl;
-            std::cout << "'f'     или 'find s'          - найти прямоугольник с площадью s."   << std::endl;
+            std::cout << "'r'     или 'remove s'        - удалить фигуру с площадью s." << std::endl;
+            std::cout << "'f'     или 'find s'          - найти фигуру с площадью s."   << std::endl;
             std::cout << "'d'     или 'destroy'         - удалить дерево."                     << std::endl;
             std::cout << "'p'     или 'print'           - вывести дерево."                     << std::endl;
             std::cout << "'ins_r' или 'insertR a b'     - вставить прямоугольник в дерево."    << std::endl;
             std::cout << "'ins_q' или 'insertQ a'       - вставить квадрат в дерево."          << std::endl;
             std::cout << "'ins_t' или 'insertT b s l r' - вставить трапецию в дерево."         << std::endl;
+            std::cout << "'iter'  или 'it'              - выполнить итерацию по дереву"        << std::endl;
             std::cout << "'h'     или 'help'            - вывести справку."                    << std::endl;
         }
         action = " ";

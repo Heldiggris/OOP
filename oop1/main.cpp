@@ -6,15 +6,11 @@
 
 void print_help() {
     std::cout << "'q'                or 'quit'  - Exit the program"  << std::endl;
-    
     std::cout << "'create_quadrate'  or 'cr_qd' - Create quadrate"   << std::endl;
     std::cout << "'create_rectangle' or 'cr_rc' - Create rectangle"  << std::endl;
     std::cout << "'create_trapeze'   or 'cr_tr' - Create trapeze"    << std::endl;
-    
     std::cout << "'print'            or 'pr'    - Output parameters" << std::endl;
-
     std::cout << "'square'           or 'sq'    - Output square"     << std::endl;
-
     std::cout << "'help'             or 'h'     - Get help"          << std::endl;
 }
 
@@ -28,16 +24,7 @@ int main(int argc, char** argv)
     Figure* figure = nullptr;
     std::string action_figure = "q";
 
-    while (true) {
-        if (std::cin.eof())
-            break;
-        std::cin.clear();
-        std::cin.sync();
-        std::cout << std::endl << "Select an action" << std::endl;
-        std::cin >> action_figure;
-        if (std::cin.eof())
-            break;
-
+    while (std::cin >> action_figure) {
         if (action_figure == "quit" || action_figure == "q") {
             break;
         }
@@ -61,7 +48,7 @@ int main(int argc, char** argv)
         }
         else if (action_figure == "print" || action_figure == "pr") {
             if (figure == nullptr) {
-                std::cout << "Figure not created";
+                std::cout << "Figure not created" << std::endl;
             }
             else {
                 figure->Print();
@@ -69,7 +56,7 @@ int main(int argc, char** argv)
         }
         else if (action_figure == "square" || action_figure == "sq") {
             if (figure == nullptr) {
-                std::cout << "Figure not created";
+                std::cout << "Figure not created" << std::endl;
             }
             else {
                 std::cout << "S = " << figure->Square() << std::endl;
@@ -78,9 +65,8 @@ int main(int argc, char** argv)
         else if (action_figure == "help" || action_figure == "h") {
             print_help();
         }
-        else {
-            // std::cout << "Action not found, enter 'h' for help" << std::endl;
-        }
+        std::cin.clear();
+        std::cin.sync();
     }
     if (figure != nullptr) {
         delete figure;

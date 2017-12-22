@@ -14,7 +14,7 @@ TBinaryTreeItem::TBinaryTreeItem(Rectangle& rectangle)
 }
 
 
-int TBinaryTreeItem::Square()
+size_t TBinaryTreeItem::Square()
 {
     return rectangle.Square();
 }

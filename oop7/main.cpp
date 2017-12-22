@@ -6,12 +6,15 @@
 #include "Rectangle.h"
 #include "TBinaryTree.h"
 #include <memory>
-
+#include <algorithm>
 
 int main(int argc, char** argv)
-{   
+{
 
-    std::shared_ptr<TBinaryTree<Figure> > tree = std::shared_ptr<TBinaryTree<Figure> >(new TBinaryTree<Figure>());
+    std::shared_ptr<TBinaryTree<TStack<std::shared_ptr<Figure> >, Figure > > tree (new TBinaryTree<TStack<std::shared_ptr<Figure> >, Figure >);   
+    
+    // if (tree->empty()) {}
+    // std::shared_ptr<TBinaryTree<Figure> > tree = std::shared_ptr<TBinaryTree<Figure> >(new TBinaryTree<Figure>());
     std::string action;
 
     std::cout << "Введите 'h' или 'help' для получения справки." << std::endl;
@@ -65,16 +68,17 @@ int main(int argc, char** argv)
                 std::cout << "Неверное значение." << std::endl;
                 continue;
             }
-            std::shared_ptr<TBinaryTreeItem<Figure> > rect = tree->find(square);
+            std::shared_ptr<TBinaryTreeItem<TStack<std::shared_ptr<Figure> >, Figure > > rect = tree->find(square);
             if (rect != nullptr) {
-                rect->GetFigure()->Print();
+                // rect->GetFigure()->GetElem()->Print();
+                std::cout << "Стек с " << rect->GetFigure()->Size() << " элементами, S = " << rect->GetFigure()->GetElem()->Square() << std::endl;
             } else {
-                std::cout << "Фигура не найдена." << std::endl;
+                std::cout << "Прямоугольник не найден." << std::endl;
             }
             
         }
         else if (action == "destroy" || action == "d") {
-            tree = std::shared_ptr<TBinaryTree<Figure> >(new TBinaryTree<Figure>());
+            tree = std::shared_ptr<TBinaryTree<TStack<std::shared_ptr<Figure> >, Figure > >(new TBinaryTree<TStack<std::shared_ptr<Figure> >, Figure >());
             std::cout << "Дерево удалено." << std::endl;
         }
         else if (action == "print" || action == "p") {
@@ -84,15 +88,25 @@ int main(int argc, char** argv)
                 std::cout << "Дерево пустое." << std::endl;
             }
         }
+        else if (action == "iter" || action == "it") {
+            if (!tree->empty()) {
+                for (auto i : *tree) {
+                    std::cout << "Стек с " << i->Size() << " элементами, S = " << i->GetElem()->Square() << std::endl;
+                }
+            } else {
+                std::cout << "Дерево пустое." << std::endl;
+            }
+        }
         else if (action == "help" || action == "h") {
             std::cout << "'q'     или 'quit'            - выйти из программы."                 << std::endl;
-            std::cout << "'r'     или 'remove s'        - удалить прямоугольник с площадью s." << std::endl;
-            std::cout << "'f'     или 'find s'          - найти прямоугольник с площадью s."   << std::endl;
+            std::cout << "'r'     или 'remove s'        - удалить фигуру с площадью s." << std::endl;
+            std::cout << "'f'     или 'find s'          - найти фигуру с площадью s."   << std::endl;
             std::cout << "'d'     или 'destroy'         - удалить дерево."                     << std::endl;
             std::cout << "'p'     или 'print'           - вывести дерево."                     << std::endl;
             std::cout << "'ins_r' или 'insertR a b'     - вставить прямоугольник в дерево."    << std::endl;
             std::cout << "'ins_q' или 'insertQ a'       - вставить квадрат в дерево."          << std::endl;
             std::cout << "'ins_t' или 'insertT b s l r' - вставить трапецию в дерево."         << std::endl;
+            std::cout << "'iter'  или 'it'              - выполнить итерацию по дереву"        << std::endl;
             std::cout << "'h'     или 'help'            - вывести справку."                    << std::endl;
         }
         action = " ";
